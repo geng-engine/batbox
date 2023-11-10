@@ -44,11 +44,15 @@ fn derive_impl(input: TokenStream) -> TokenStream {
                 .map(|field| {
                     let mut diff_type = DiffMode::Diff;
                     for attr in &field.attrs {
-                        if let Ok(syn::Meta::NameValue(syn::MetaNameValue {
+                        if let syn::Meta::NameValue(syn::MetaNameValue {
                             path: ref meta_path,
-                            lit: syn::Lit::Str(ref s),
+                            value:
+                                syn::Expr::Lit(syn::ExprLit {
+                                    lit: syn::Lit::Str(ref s),
+                                    ..
+                                }),
                             ..
-                        })) = attr.parse_meta()
+                        }) = attr.meta
                         {
                             if meta_path.is_ident("diff") {
                                 diff_type = match s.value().as_str() {

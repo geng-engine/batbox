@@ -173,7 +173,7 @@ pub async fn load_detect<T: DeserializeOwned>(
     let data = load_bytes(path).await?;
     let value = match ext {
         "json" => serde_json::from_reader(data.as_slice())?,
-        "toml" => toml::from_slice(&data)?,
+        "toml" => toml::from_str(std::str::from_utf8(&data)?)?,
         "ron" => ron::de::from_bytes(&data)?,
         _ => anyhow::bail!("{ext:?} is unsupported"),
     };
