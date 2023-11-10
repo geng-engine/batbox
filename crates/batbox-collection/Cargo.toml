@@ -1,0 +1,13 @@
+[package]
+name = "batbox-collection"
+authors.workspace = true
+edition.workspace = true
+license.workspace = true
+readme.workspace = true
+repository.workspace = true
+version.workspace = true
+
+[dependencies]
+batbox-collection-derive.workspace = true
+batbox-diff.workspace = true
+serde.workspace = true

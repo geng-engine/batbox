@@ -1,0 +1,11 @@
+[package]
+name = "batbox-cmp"
+authors.workspace = true
+edition.workspace = true
+license.workspace = true
+readme.workspace = true
+repository.workspace = true
+version.workspace = true
+
+[dependencies]
+batbox-range.workspace = true

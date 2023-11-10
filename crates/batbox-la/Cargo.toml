@@ -1,0 +1,16 @@
+[package]
+name = "batbox-la"
+authors.workspace = true
+edition.workspace = true
+license.workspace = true
+readme.workspace = true
+repository.workspace = true
+version.workspace = true
+
+[dependencies]
+batbox-num.workspace = true
+batbox-cmp.workspace = true
+batbox-range.workspace = true
+batbox-approx.workspace = true
+rand.workspace = true
+serde.workspace = true

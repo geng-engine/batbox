@@ -1,0 +1,15 @@
+[package]
+name = "batbox-color"
+authors.workspace = true
+edition.workspace = true
+license.workspace = true
+readme.workspace = true
+repository.workspace = true
+version.workspace = true
+
+[dependencies]
+batbox-approx.workspace = true
+batbox-la.workspace = true
+
+serde.workspace = true
+anyhow.workspace = true # TODO use thiserror

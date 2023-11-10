@@ -1,0 +1,15 @@
+[package]
+name = "batbox-android"
+authors.workspace = true
+edition.workspace = true
+license.workspace = true
+readme.workspace = true
+repository.workspace = true
+version.workspace = true
+
+[target.'cfg(target_os = "android")'.dependencies]
+android-activity.workspace = true
+oboe.workspace = true
+jni.workspace = true
+ndk-context.workspace = true
+ndk.workspace = true

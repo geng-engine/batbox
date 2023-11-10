@@ -1,0 +1,169 @@
+[workspace]
+members = ["crates/*"]
+resolver = "2"
+
+[workspace.package]
+authors = ["kuviman <kuviman@gmail.com>"]
+edition = "2021"
+license = "MIT"
+readme = "README.md"
+repository = "https://github.com/geng-engine/batbox"
+version = "0.15.0"
+
+[workspace.dependencies]
+anyhow = { version = "1", features = ["backtrace"] } # TODO: eyre?
+async-recursion = "1"
+async-trait = "0.1"
+backtrace = "0.3"
+bincode = "1"
+clap = { version = "4", features = ["derive"] }
+derivative = "2"
+derive_more = "0.99"
+dyn-clone = "1"
+env_logger = "0.10"
+futures = "0.3"
+# https://github.com/rust-random/rand#wasm-support
+getrandom = { version = "0.2", features = ["js"] }
+http = "0.2"
+itertools = "0.10"
+log = "0.4"
+maplit = "1"
+once_cell = "1"
+pin-utils = "0.1"
+rand = "0.8"
+ron = "0.8"
+toml = "0.5"
+serde = { version = "1", features = ["derive", "rc"] }
+serde_json = "1"
+thiserror = "1"
+url = "2"
+async-compat = "0.2"
+async-std = "1"
+directories = "4"
+libc = "0.2"
+reqwest = { version = "0.11", features = [
+  "stream",
+  "rustls-tls",
+], default-features = false }
+threadpool = "1"
+tinyfiledialogs = { version = "3", default-features = false }
+
+# Web
+js-sys = "0.3"
+web-sys = "0.3"
+wasm-bindgen = { version = "0.2", features = ["serde-serialize"] }
+wasm-bindgen-futures = "0.4"
+wasm-streams = "0.3"
+
+# Proc macros
+syn = { version = "1", features = ["full"] }
+quote = "1"
+proc-macro2 = "1"
+darling = "0.14"
+
+
+# Android
+android-activity = { version = "0.4", features = ["native-activity"] }
+jni = "0.21.1"
+ndk = "0.7"
+ndk-context = "0.1.1"
+oboe = { version = "0.5", features = ["java-interface", "shared-stdcxx"] }
+
+# Workspace crates
+batbox = { version = "0.15", path = "crates/batbox" }
+batbox-android = { version = "0.15", path = "crates/batbox-android" }
+batbox-tuple-macros = { version = "0.15", path = "crates/batbox-tuple-macros" }
+batbox-i18n = { version = "0.15", path = "crates/batbox-i18n" }
+batbox-i18n-macro = { version = "0.15", path = "crates/batbox-i18n/macro" }
+batbox-num = { version = "0.15", path = "crates/batbox-num" }
+batbox-approx = { version = "0.15", path = "crates/batbox-approx" }
+batbox-color = { version = "0.15", path = "crates/batbox-color" }
+batbox-time = { version = "0.15", path = "crates/batbox-time" }
+batbox-file = { version = "0.15", path = "crates/batbox-file" }
+batbox-file-dialog = { version = "0.15", path = "crates/batbox-file-dialog" }
+batbox-preferences = { version = "0.15", path = "crates/batbox-preferences" }
+batbox-cli = { version = "0.15", path = "crates/batbox-cli" }
+batbox-logger = { version = "0.15", path = "crates/batbox-logger" }
+batbox-diff = { version = "0.15", path = "crates/batbox-diff" }
+batbox-diff-derive = { version = "0.15", path = "crates/batbox-diff/derive" }
+batbox-collection = { version = "0.15", path = "crates/batbox-collection" }
+batbox-collection-derive = { version = "0.15", path = "crates/batbox-collection/derive" }
+batbox-range = { version = "0.15", path = "crates/batbox-range" }
+batbox-cmp = { version = "0.15", path = "crates/batbox-cmp" }
+batbox-la = { version = "0.15", path = "crates/batbox-la" }
+batbox-lapp = { version = "0.15", path = "crates/batbox-lapp" }
+
+[package]
+name = "batbox"
+authors.workspace = true
+edition.workspace = true
+license.workspace = true
+readme.workspace = true
+repository.workspace = true
+version.workspace = true
+
+[dependencies]
+batbox-i18n.workspace = true
+batbox-num.workspace = true
+batbox-color.workspace = true
+batbox-approx.workspace = true
+batbox-tuple-macros.workspace = true
+batbox-time.workspace = true
+batbox-file.workspace = true
+batbox-file-dialog.workspace = true
+batbox-preferences.workspace = true
+batbox-cli.workspace = true
+batbox-logger.workspace = true
+batbox-diff.workspace = true
+batbox-collection.workspace = true
+batbox-cmp.workspace = true
+batbox-range.workspace = true
+batbox-la.workspace = true
+batbox-lapp.workspace = true
+
+# rng
+rand.workspace = true
+getrandom.workspace = true # https://github.com/rust-random/rand#wasm-support
+
+toml.workspace = true
+serde.workspace = true
+serde_json.workspace = true
+ron.workspace = true
+log.workspace = true
+clap.workspace = true
+url.workspace = true
+futures.workspace = true
+pin-utils.workspace = true
+once_cell.workspace = true
+bincode.workspace = true
+dyn-clone.workspace = true
+maplit.workspace = true
+env_logger.workspace = true
+backtrace.workspace = true
+thiserror.workspace = true
+anyhow.workspace = true
+async-trait.workspace = true
+async-recursion.workspace = true
+derive_more.workspace = true
+itertools.workspace = true
+derivative.workspace = true
+http.workspace = true
+
+[target.'cfg(target_os = "android")'.dependencies]
+batbox-android.workspace = true
+
+[target.'cfg(target_arch = "wasm32")'.dependencies]
+wasm-bindgen.workspace = true
+wasm-bindgen-futures.workspace = true
+js-sys.workspace = true
+web-sys.workspace = true
+wasm-streams.workspace = true
+
+[target.'cfg(not(target_arch = "wasm32"))'.dependencies]
+libc.workspace = true
+tinyfiledialogs.workspace = true
+directories.workspace = true
+threadpool.workspace = true
+async-std.workspace = true
+reqwest.workspace = true
+async-compat.workspace = true
