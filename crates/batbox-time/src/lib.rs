@@ -137,10 +137,11 @@ pub async fn sleep(duration: Duration) {
                 .set_timeout_with_callback_and_timeout_and_arguments_0(
                     &resolve,
                     (duration.as_secs_f64() * 1000.0).round() as _,
-                );
+                )
+                .unwrap();
         });
         let future = wasm_bindgen_futures::JsFuture::from(promise);
-        future.await;
+        future.await.unwrap();
     }
     #[cfg(not(target_arch = "wasm32"))]
     {
