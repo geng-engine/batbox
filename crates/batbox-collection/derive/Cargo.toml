@@ -1,5 +1,6 @@
 [package]
 name = "batbox-collection-derive"
+description = "batbox-collection derive macros"
 authors.workspace = true
 edition.workspace = true
 license.workspace = true

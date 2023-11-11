@@ -95,6 +95,7 @@ batbox-lapp = { version = "0.15", path = "crates/batbox-lapp" }
 
 [package]
 name = "batbox"
+description = "collection of commonly used things"
 authors.workspace = true
 edition.workspace = true
 license.workspace = true
