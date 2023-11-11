@@ -1,5 +1,6 @@
 [package]
 name = "batbox-android"
+description = "Helper crate for android"
 authors.workspace = true
 edition.workspace = true
 license.workspace = true

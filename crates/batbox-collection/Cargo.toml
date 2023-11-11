@@ -1,5 +1,6 @@
 [package]
 name = "batbox-collection"
+description = "Collection of identifiable objects"
 authors.workspace = true
 edition.workspace = true
 license.workspace = true

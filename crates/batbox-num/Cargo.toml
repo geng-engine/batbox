@@ -1,5 +1,6 @@
 [package]
 name = "batbox-num"
+description = "num traits"
 authors.workspace = true
 edition.workspace = true
 license.workspace = true

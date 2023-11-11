@@ -1,5 +1,6 @@
 [package]
 name = "batbox-file"
+description = "Loading files with web support"
 authors.workspace = true
 edition.workspace = true
 license.workspace = true

@@ -1,5 +1,6 @@
 [package]
 name = "batbox-preferences"
+description = "saving/loading user preferences"
 authors.workspace = true
 edition.workspace = true
 license.workspace = true

@@ -1,5 +1,6 @@
 [package]
 name = "batbox-time"
+description = "Alternative for std::time so that it works on web"
 authors.workspace = true
 edition.workspace = true
 license.workspace = true

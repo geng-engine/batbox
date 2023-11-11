@@ -1,5 +1,6 @@
 [package]
 name = "batbox-la"
+description = "Linear algebra"
 authors.workspace = true
 edition.workspace = true
 license.workspace = true

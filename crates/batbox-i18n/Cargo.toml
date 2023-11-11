@@ -1,5 +1,6 @@
 [package]
 name = "batbox-i18n"
+description = "simple internationalization"
 authors.workspace = true
 edition.workspace = true
 license.workspace = true
