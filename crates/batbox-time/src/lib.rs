@@ -50,7 +50,7 @@ impl Instant {
 /// Represents a span of time.
 ///
 /// Alternative of [std::time::Duration]
-#[derive(Copy, Clone)]
+#[derive(Copy, Clone, PartialEq)]
 pub struct Duration {
     secs: f64,
 }
@@ -61,6 +61,20 @@ impl std::ops::Add for Duration {
         Self {
             secs: self.secs + rhs.secs,
         }
+    }
+}
+
+impl PartialOrd for Duration {
+    fn partial_cmp(&self, other: &Self) -> Option<std::cmp::Ordering> {
+        Some(self.cmp(other))
+    }
+}
+
+impl Eq for Duration {}
+
+impl Ord for Duration {
+    fn cmp(&self, other: &Self) -> std::cmp::Ordering {
+        self.secs.partial_cmp(&other.secs).unwrap()
     }
 }
 
