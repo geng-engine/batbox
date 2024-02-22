@@ -70,28 +70,27 @@ ndk-context = "0.1.1"
 oboe = { version = "0.5", features = ["java-interface", "shared-stdcxx"] }
 
 # Workspace crates
-batbox = { version = "0.15", path = "crates/batbox" }
-batbox-android = { version = "0.16", path = "crates/batbox-android" }
-batbox-tuple-macros = { version = "0.16", path = "crates/batbox-tuple-macros" }
-batbox-i18n = { version = "0.16", path = "crates/batbox-i18n" }
-batbox-i18n-macro = { version = "0.16", path = "crates/batbox-i18n/macro" }
-batbox-num = { version = "0.16", path = "crates/batbox-num" }
-batbox-approx = { version = "0.16", path = "crates/batbox-approx" }
-batbox-color = { version = "0.16", path = "crates/batbox-color" }
-batbox-time = { version = "0.16", path = "crates/batbox-time" }
-batbox-file = { version = "0.16", path = "crates/batbox-file" }
-batbox-file-dialog = { version = "0.16", path = "crates/batbox-file-dialog" }
-batbox-preferences = { version = "0.16", path = "crates/batbox-preferences" }
-batbox-cli = { version = "0.16", path = "crates/batbox-cli" }
-batbox-logger = { version = "0.16", path = "crates/batbox-logger" }
-batbox-diff = { version = "0.16", path = "crates/batbox-diff" }
-batbox-diff-derive = { version = "0.16", path = "crates/batbox-diff/derive" }
-batbox-collection = { version = "0.16", path = "crates/batbox-collection" }
-batbox-collection-derive = { version = "0.16", path = "crates/batbox-collection/derive" }
-batbox-range = { version = "0.16", path = "crates/batbox-range" }
-batbox-cmp = { version = "0.16", path = "crates/batbox-cmp" }
-batbox-la = { version = "0.16", path = "crates/batbox-la" }
-batbox-lapp = { version = "0.16", path = "crates/batbox-lapp" }
+batbox-android = { version = "0.16", path = "crates/android" }
+batbox-tuple-macros = { version = "0.16", path = "crates/tuple-macros" }
+batbox-i18n = { version = "0.16", path = "crates/i18n" }
+batbox-i18n-macro = { version = "0.16", path = "crates/i18n/macro" }
+batbox-num = { version = "0.16", path = "crates/num" }
+batbox-approx = { version = "0.16", path = "crates/approx" }
+batbox-color = { version = "0.16", path = "crates/color" }
+batbox-time = { version = "0.16", path = "crates/time" }
+batbox-file = { version = "0.16", path = "crates/file" }
+batbox-file-dialog = { version = "0.16", path = "crates/file-dialog" }
+batbox-preferences = { version = "0.16", path = "crates/preferences" }
+batbox-cli = { version = "0.16", path = "crates/cli" }
+batbox-logger = { version = "0.16", path = "crates/logger" }
+batbox-diff = { version = "0.16", path = "crates/diff" }
+batbox-diff-derive = { version = "0.16", path = "crates/diff/derive" }
+batbox-collection = { version = "0.16", path = "crates/collection" }
+batbox-collection-derive = { version = "0.16", path = "crates/collection/derive" }
+batbox-range = { version = "0.16", path = "crates/range" }
+batbox-cmp = { version = "0.16", path = "crates/cmp" }
+batbox-la = { version = "0.16", path = "crates/la" }
+batbox-lapp = { version = "0.16", path = "crates/lapp" }
 
 [package]
 name = "batbox"
