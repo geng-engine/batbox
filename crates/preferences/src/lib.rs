@@ -11,7 +11,7 @@ pub fn base_path() -> std::path::PathBuf {
         if #[cfg(target_arch = "wasm32")] {
             ".".into() // TODO: detect app name by url?
         } else if #[cfg(target_os = "android")] {
-            ".".into()
+             batbox_android::app().external_data_path().unwrap().join(".preferences")
         } else {
             let exe = std::env::current_exe().expect("Failed to find current exe");
             let app_name = exe.file_stem().unwrap();
