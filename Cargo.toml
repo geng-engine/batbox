@@ -11,6 +11,7 @@ repository = "https://github.com/geng-engine/batbox"
 version = "0.16.0"
 
 [workspace.dependencies]
+cfg-if = "1"
 anyhow = { version = "1", features = ["backtrace"] } # TODO: eyre?
 async-recursion = "1"
 async-trait = "0.1"

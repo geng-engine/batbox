@@ -7,23 +7,24 @@ use serde::{de::DeserializeOwned, Serialize};
 
 /// Base path where preferences are going to be saved/loaded from
 pub fn base_path() -> std::path::PathBuf {
-    #[cfg(target_arch = "wasm32")]
-    {
-        ".".into() // TODO: detect app name by url?
-    }
-    #[cfg(not(target_arch = "wasm32"))]
-    {
-        let exe = std::env::current_exe().expect("Failed to find current exe");
-        let app_name = exe.file_stem().unwrap();
-        if let Some(dirs) =
-            directories::ProjectDirs::from("", "", app_name.to_str().expect("Exe name is invalid"))
-        {
-            return dirs.preference_dir().to_path_buf();
+    cfg_if::cfg_if! {
+        if #[cfg(target_arch = "wasm32")] {
+            ".".into() // TODO: detect app name by url?
+        } else if #[cfg(target_os = "android")] {
+            ".".into()
+        } else {
+            let exe = std::env::current_exe().expect("Failed to find current exe");
+            let app_name = exe.file_stem().unwrap();
+            if let Some(dirs) =
+                directories::ProjectDirs::from("", "", app_name.to_str().expect("Exe name is invalid"))
+            {
+                return dirs.preference_dir().to_path_buf();
+            }
+            if let Some(dir) = exe.parent() {
+                return dir.to_path_buf();
+            }
+            std::env::current_dir().unwrap()
         }
-        if let Some(dir) = exe.parent() {
-            return dir.to_path_buf();
-        }
-        std::env::current_dir().unwrap()
     }
 }
 
