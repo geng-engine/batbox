@@ -537,6 +537,7 @@ dependencies = [
 name = "batbox-preferences"
 version = "0.16.0"
 dependencies = [
+ "batbox-android",
  "cfg-if",
  "directories",
  "log",
