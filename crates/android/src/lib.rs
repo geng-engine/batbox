@@ -181,3 +181,55 @@ pub fn copy_assets_to_filesystem(
         Ok(())
     }
 }
+
+pub fn enable_immersive() {
+    // Create a VM for executing Java calls
+    let ctx = ndk_context::android_context();
+
+    let vm = unsafe { jni::JavaVM::from_raw(ctx.vm().cast()) }.unwrap();
+    let mut env = vm.attach_current_thread().unwrap();
+
+    let activity = unsafe { jni::objects::JObject::from_raw(app().activity_as_ptr().cast()) };
+    let window = env
+        .call_method(activity, "getWindow", "()Landroid/view/Window;", &[])
+        .unwrap()
+        .l()
+        .unwrap();
+    let view = env
+        .call_method(window, "getDecorView", "()Landroid/view/View;", &[])
+        .unwrap()
+        .l()
+        .unwrap();
+    let view_class = env.find_class("android/view/View").unwrap();
+    let flag_fullscreen = env
+        .get_static_field(&view_class, "SYSTEM_UI_FLAG_FULLSCREEN", "I")
+        .unwrap()
+        .i()
+        .unwrap();
+    let flag_hide_navigation = env
+        .get_static_field(&view_class, "SYSTEM_UI_FLAG_HIDE_NAVIGATION", "I")
+        .unwrap()
+        .i()
+        .unwrap();
+    let flag_immersive_sticky = env
+        .get_static_field(&view_class, "SYSTEM_UI_FLAG_IMMERSIVE_STICKY", "I")
+        .unwrap()
+        .i()
+        .unwrap();
+    let flag = flag_fullscreen | flag_hide_navigation | flag_immersive_sticky;
+    match env.call_method(
+        view,
+        "setSystemUiVisibility",
+        "(I)V",
+        &[jni::objects::JValue::Int(flag)],
+    ) {
+        Err(e) => {
+            println!("Failed to enable immersive mode: {e:#?}");
+            if let jni::errors::Error::JavaException = e {
+                env.exception_describe();
+            }
+        }
+        _ => {}
+    }
+    env.exception_clear();
+}
