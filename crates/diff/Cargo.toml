@@ -9,5 +9,4 @@ repository.workspace = true
 version.workspace = true
 
 [dependencies]
-serde.workspace = true
 batbox-diff-derive.workspace = true

@@ -458,7 +458,6 @@ name = "batbox-diff"
 version = "0.16.0"
 dependencies = [
  "batbox-diff-derive",
- "serde",
 ]
 
 [[package]]

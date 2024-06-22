@@ -18,14 +18,17 @@ pub fn derive_diff(input: proc_macro::TokenStream) -> proc_macro::TokenStream {
 
 #[derive(FromDeriveInput)]
 #[darling(supports(struct_named))]
+#[darling(attributes(diff))]
 struct DeriveInput {
     ident: syn::Ident,
     generics: syn::Generics,
     data: darling::ast::Data<(), Field>,
+    #[darling(default)]
+    derive: syn::punctuated::Punctuated<syn::Path, syn::Token![,]>,
 }
 
 #[derive(FromField)]
-#[darling(attributes(has_id))]
+#[darling(attributes(diff))]
 struct Field {
     ident: Option<syn::Ident>,
     vis: syn::Visibility,
@@ -113,9 +116,10 @@ impl DeriveInput {
                 },
             }
         });
+        let delta_derives = self.derive.iter();
         let input_type = &self.ident;
         quote! {
-            #[derive(Debug, Serialize, Deserialize, Clone)]
+            #[derive(#(#delta_derives),*)]
             pub struct #delta_type #generics {
                 #(#field_names: #field_diff_types,)*
             }
