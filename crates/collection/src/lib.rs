@@ -2,7 +2,7 @@
 #![warn(missing_docs)]
 
 use batbox_diff::Diff;
-use serde::{Deserialize, Serialize};
+use serde::{de::DeserializeOwned, Deserialize, Serialize};
 use std::collections::HashMap;
 use std::fmt::Debug;
 use std::hash::Hash;
@@ -41,7 +41,8 @@ pub struct Collection<T: HasId> {
 }
 
 /// A difference between two collections
-#[derive(Debug, Serialize, Deserialize, Clone)]
+#[derive(Debug, Clone, Serialize, Deserialize)]
+#[serde(bound = "T: Serialize + DeserializeOwned + Diff<Delta: Serialize + DeserializeOwned>")]
 pub struct CollectionDelta<T: HasId + Diff> {
     /// Entities present in second, but not in first collection
     #[serde(bound = "")]
@@ -53,7 +54,7 @@ pub struct CollectionDelta<T: HasId + Diff> {
     pub mutated_entities: Vec<(T::Id, T::Delta)>,
 }
 
-impl<T: HasId + Clone + Diff> Diff for Collection<T> {
+impl<T: HasId + Clone + Diff + PartialEq> Diff for Collection<T> {
     type Delta = Option<CollectionDelta<T>>;
     fn diff(&self, to: &Self) -> Self::Delta {
         let mut new_entities = Vec::new();
