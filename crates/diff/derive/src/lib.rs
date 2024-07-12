@@ -42,6 +42,7 @@ enum DiffMode {
     Diff,
     Clone,
     Eq,
+    Skip,
 }
 
 impl Default for DiffMode {
@@ -79,6 +80,7 @@ impl DeriveInput {
                 DiffMode::Eq => quote! {
                     Option<#field_ty>
                 },
+                DiffMode::Skip => quote! { () },
             }
         });
         let field_diffs = fields.iter().map(|field| {
@@ -97,6 +99,7 @@ impl DeriveInput {
                         Some(to.#field_name.clone())
                     }
                 },
+                DiffMode::Skip => quote! { () },
             }
         });
 
@@ -114,6 +117,7 @@ impl DeriveInput {
                         self.#field_name = value.clone();
                     }
                 },
+                DiffMode::Skip => quote! {},
             }
         });
         let delta_derives = self.derive.iter();
