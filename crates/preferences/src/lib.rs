@@ -5,6 +5,15 @@
 
 use serde::{de::DeserializeOwned, Serialize};
 
+fn serialize<T: Serialize>(value: &T) -> String {
+    ron::ser::to_string_pretty(value, ron::ser::PrettyConfig::new())
+        .expect("Failed to serialize save")
+}
+
+fn deserialize<T: DeserializeOwned>(s: &str) -> Result<T, ron::de::SpannedError> {
+    ron::from_str(s)
+}
+
 /// Base path where preferences are going to be saved/loaded from
 pub fn base_path() -> std::path::PathBuf {
     cfg_if::cfg_if! {
@@ -36,10 +45,7 @@ pub fn save<T: Serialize>(key: &str, value: &T) {
     {
         let path = path.to_str().unwrap();
         if let Ok(Some(storage)) = web_sys::window().unwrap().local_storage() {
-            if let Err(e) = storage.set_item(
-                path,
-                &serde_json::to_string(value).expect("Failed to serialize"),
-            ) {
+            if let Err(e) = storage.set_item(path, &serialize(value)) {
                 let _ = e; // TODO: error?
             }
         }
@@ -59,7 +65,7 @@ pub fn save<T: Serialize>(key: &str, value: &T) {
                 return;
             }
         };
-        if let Err(e) = file.write_all(serde_json::to_string_pretty(value).unwrap().as_bytes()) {
+        if let Err(e) = file.write_all(serialize(value).as_bytes()) {
             log::error!("Failed to save {:?}: {}", path, e);
         }
     }
@@ -77,7 +83,7 @@ pub fn load<T: DeserializeOwned>(key: &str) -> Option<T> {
                 .get_item(path)
                 .ok()
                 .flatten()
-                .map(|s| serde_json::from_str(&s))
+                .map(|s| deserialize(&s))
             {
                 Some(Ok(value)) => Some(value),
                 Some(Err(e)) => {
@@ -93,14 +99,18 @@ pub fn load<T: DeserializeOwned>(key: &str) -> Option<T> {
     #[cfg(not(target_arch = "wasm32"))]
     {
         let path = &path;
-        let file = match std::fs::File::open(path) {
+        let mut file = match std::fs::File::open(path) {
             Ok(file) => file,
             Err(e) => {
                 log::warn!("Failed to open {:?}: {}", path, e);
                 return None;
             }
         };
-        match serde_json::from_reader(file) {
+        let mut contents = String::new();
+        use std::io::Read;
+        file.read_to_string(&mut contents)
+            .expect("Failed to read save file");
+        match deserialize(&contents) {
             Ok(value) => {
                 log::debug!("Successfully loaded {:?}", path);
                 Some(value)

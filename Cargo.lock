@@ -581,8 +581,8 @@ dependencies = [
  "cfg-if",
  "directories",
  "log",
+ "ron",
  "serde",
- "serde_json",
  "web-sys",
 ]
 
