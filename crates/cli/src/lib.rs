@@ -7,7 +7,7 @@ pub mod prelude {
     //! Items intended to be added to global namespace
 
     pub use crate as cli;
-    pub use ::clap;
+    pub use clap;
 }
 
 /// Returns a list of program arguments
@@ -41,5 +41,15 @@ pub fn get() -> Vec<String> {
 
 /// Parse program arguments
 pub fn parse<T: clap::Parser>() -> T {
-    clap::Parser::parse_from(get())
+    match clap::Parser::try_parse_from(get()) {
+        Ok(args) => args,
+        Err(err) => {
+            // On web - panic application so the geng panic handler catches it and the error is displayed
+            #[cfg(target_arch = "wasm32")]
+            panic!("Failed to parse program arguments: {}", err);
+            // Native - use the regular clap behavior that exits the application
+            #[cfg(not(target_arch = "wasm32"))]
+            err.exit();
+        }
+    }
 }
